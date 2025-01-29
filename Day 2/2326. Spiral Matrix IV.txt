@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrix(int m, int n, ListNode* head) {
+        vector<vector<int>> matrix(m, vector<int>(n, -1));
+        int dir[4][2] = {{0,1}, {1,0}, {0,-1}, {-1,0}};
+        int x = 0, y = 0, d = 0;
+        while (head) {
+            matrix[x][y] = head->val;
+            head = head->next;
+            int nx = x + dir[d][0], ny = y + dir[d][1];
+            if (nx < 0 || nx >= m || ny < 0 || ny >= n || matrix[nx][ny] != -1) {
+                d = (d + 1) % 4;
+                nx = x + dir[d][0], ny = y + dir[d][1];
+            }
+            x = nx, y = ny;
+        }
+        return matrix;
+    }
+};
